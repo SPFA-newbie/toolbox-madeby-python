@@ -49,3 +49,17 @@ def gridXY(w:numpy.uint32, h:numpy.uint32, x:numpy.uint32, y:numpy.uint32, isCol
         return para["spaceColor"]
     else:
         return para["color"]
+
+# 构造不均匀单色噪声
+# 额外参数：
+#   func        噪音分布
+#                   接受四个参数, w, h, x, y
+#                   返回一个[0, 1]浮点数，表示这一点出现噪音的概率
+#   color       噪音颜色
+#   backColor   背景颜色
+def inhomogeneousPixel(w:numpy.uint32, h:numpy.uint32, x:numpy.uint32, y:numpy.uint32, isColored:bool, para:dict):
+    func=para["func"]
+    if random.random()<=func(w, h, x, y):
+        return para["color"]
+    else:
+        return para["backColor"]

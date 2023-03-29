@@ -25,13 +25,23 @@ def imgMaker(w:numpy.uint32, h:numpy.uint32, isColored:bool = True, pixelMaker =
     return img
 
 if __name__=="__main__":
-    gridPara={}
-    gridPara["color"]=numpy.array((255, 255, 255), dtype=numpy.uint8)
-    gridPara["spaceColor"]=numpy.array((0, 0, 0), dtype=numpy.uint8)
-    gridPara["spaceWidth"]=10
-    gridPara["spaceHeight"]=1
-    gridPara["rowSize"]=1
-    gridPara["colSize"]=10
+    # gridPara={}
+    # gridPara["color"]=numpy.array((255, 255, 255), dtype=numpy.uint8)
+    # gridPara["spaceColor"]=numpy.array((0, 0, 0), dtype=numpy.uint8)
+    # gridPara["spaceWidth"]=10
+    # gridPara["spaceHeight"]=1
+    # gridPara["rowSize"]=1
+    # gridPara["colSize"]=10
 
-    img=imgMaker(900, 600, True, pMaker.gridXY, gridPara)
-    cv2.imwrite("result.jpg", img)
+    # img=imgMaker(900, 600, True, pMaker.gridXY, gridPara)
+    # cv2.imwrite("result.jpg", img)
+
+    inhomoPara={}
+    def func(w:numpy.uint32, h:numpy.uint32, x:numpy.uint32, y:numpy.uint32):
+        import  math
+        return 0.33*(math.sin(y/w*10*math.pi)+1)+0.33
+    inhomoPara["func"]=func
+    inhomoPara["color"]=numpy.array((32, 32, 32), dtype=numpy.uint8)
+    inhomoPara["backColor"]=numpy.array((0, 0, 0), dtype=numpy.uint8)
+    img=imgMaker(1920, 1080, True, pMaker.inhomogeneousPixel, inhomoPara)
+    cv2.imwrite("result2.jpg", img)
