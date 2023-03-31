@@ -63,3 +63,16 @@ def inhomogeneousPixel(w:numpy.uint32, h:numpy.uint32, x:numpy.uint32, y:numpy.u
         return para["color"]
     else:
         return para["backColor"]
+    
+# 构造不均匀随机噪声
+# 额外参数：
+#   func        噪音分布
+#                   接受四个参数, w, h, x, y
+#                   返回一个[0, 1]浮点数，表示这一点出现噪音的概率
+#   backColor   背景颜色
+def inhomogeneousRandomPixel(w:numpy.uint32, h:numpy.uint32, x:numpy.uint32, y:numpy.uint32, isColored:bool, para:dict):
+    func=para["func"]
+    if random.random()<=func(w, h, x, y):
+        return uint8rand()
+    else:
+        return para["backColor"]
